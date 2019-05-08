@@ -9,7 +9,7 @@ import (
 
 	proto "github.com/gogo/protobuf/proto"
 	pb "github.com/golang/protobuf/proto"
-	"github.com/vmihailenco/msgpack"
+	"github.com/ugorji/go/codec"
 
 	"github.com/apache/thrift/lib/go/thrift"
 )
@@ -84,23 +84,48 @@ func (c PBCodec) Decode(data []byte, i interface{}) error {
 }
 
 // MsgpackCodec uses messagepack marshaler and unmarshaler.
-type MsgpackCodec struct{}
+type MsgpackCodec struct {
+	handle  codec.MsgpackHandle
+	bufsize int
+	buf     *bytes.Buffer
+	enc     *codec.Encoder
+	dec     *codec.Decoder
+}
+
+// NewMsgpackCodec uses the optimised github.com/ugorji/go and we want to
+// eliminate runtime allocations so a configurable buffer size can be set
+// with the parameter and the codec can be reused
+func NewMMsgpackCodec(bufsize int) *MsgpackCodec {
+	cdc := MsgpackCodec{
+		bufsize: bufsize,
+		buf:     bytes.NewBuffer(make([]byte, bufsize)),
+	}
+	cdc.enc = codec.NewEncoder(cdc.buf, &cdc.handle)
+	cdc.dec = codec.NewDecoder(cdc.buf, &cdc.handle)
+	return &cdc
+}
 
 // Encode encodes an object into slice of bytes.
-func (c MsgpackCodec) Encode(i interface{}) ([]byte, error) {
-	var buf bytes.Buffer
-	enc := msgpack.NewEncoder(&buf)
-	//enc.UseJSONTag(true)
-	err := enc.Encode(i)
-	return buf.Bytes(), err
+func (c *MsgpackCodec) Encode(i interface{}) (out []byte, e error) {
+	c.buf.Reset()
+	c.enc.Reset(c.buf)
+	e = c.enc.Encode(i)
+	if e != nil {
+		return
+	}
+	out = c.buf.Bytes()
+	return
 }
 
 // Decode decodes an object from slice of bytes.
-func (c MsgpackCodec) Decode(data []byte, i interface{}) error {
-	dec := msgpack.NewDecoder(bytes.NewReader(data))
-	//dec.UseJSONTag(true)
-	err := dec.Decode(i)
-	return err
+func (c *MsgpackCodec) Decode(data []byte, i interface{}) error {
+	if len(data) > c.bufsize {
+		panic("buffer is too small for received data")
+	}
+	c.buf.Reset()
+	c.dec.Reset(c.buf)
+	c.buf.Read(data)
+	return c.dec.Decode(i)
 }
 
 type ThriftCodec struct{}
