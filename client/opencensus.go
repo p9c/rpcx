@@ -3,7 +3,7 @@ package client
 import (
 	"context"
 
-	"github.com/smallnest/rpcx/share"
+	"git.parallelcoin.io/dev/rpcx/share"
 	"go.opencensus.io/trace"
 )
 

@@ -1,8 +1,8 @@
 package share
 
 import (
-	"github.com/smallnest/rpcx/codec"
-	"github.com/smallnest/rpcx/protocol"
+	"git.parallelcoin.io/dev/rpcx/codec"
+	"git.parallelcoin.io/dev/rpcx/protocol"
 )
 
 const (

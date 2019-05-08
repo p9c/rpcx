@@ -5,7 +5,7 @@ package server
 import (
 	"net"
 
-	"github.com/u35s/rudp"
+	"git.parallelcoin.io/dev/rudp"
 )
 
 func init() {

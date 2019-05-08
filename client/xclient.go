@@ -14,10 +14,10 @@ import (
 	"time"
 
 	"github.com/juju/ratelimit"
-	ex "github.com/smallnest/rpcx/errors"
-	"github.com/smallnest/rpcx/protocol"
-	"github.com/smallnest/rpcx/serverplugin"
-	"github.com/smallnest/rpcx/share"
+	ex "git.parallelcoin.io/dev/rpcx/errors"
+	"git.parallelcoin.io/dev/rpcx/protocol"
+	"git.parallelcoin.io/dev/rpcx/serverplugin"
+	"git.parallelcoin.io/dev/rpcx/share"
 )
 
 const (

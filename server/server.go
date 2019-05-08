@@ -21,9 +21,9 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/smallnest/rpcx/log"
-	"github.com/smallnest/rpcx/protocol"
-	"github.com/smallnest/rpcx/share"
+	"git.parallelcoin.io/dev/rpcx/log"
+	"git.parallelcoin.io/dev/rpcx/protocol"
+	"git.parallelcoin.io/dev/rpcx/share"
 )
 
 // ErrServerClosed is returned by the Server's Serve, ListenAndServe after a call to Shutdown or Close.

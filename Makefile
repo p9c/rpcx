@@ -56,6 +56,9 @@ build:
 build-all:
 	go build -tags "reuseport kcp quic zookeeper etcd consul ping utp rudp" ./...
 
+build-rudp: 
+	go build -tags "reuseport ping utp rudp" ./...
+
 test:
 	go test -race -tags "reuseport kcp quic zookeeper etcd consul ping utp rudp" ./...
 

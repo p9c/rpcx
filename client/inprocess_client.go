@@ -7,9 +7,9 @@ import (
 	"reflect"
 	"sync"
 
-	"github.com/smallnest/rpcx/log"
-	"github.com/smallnest/rpcx/protocol"
-	"github.com/smallnest/rpcx/share"
+	"git.parallelcoin.io/dev/rpcx/log"
+	"git.parallelcoin.io/dev/rpcx/protocol"
+	"git.parallelcoin.io/dev/rpcx/share"
 )
 
 // InprocessClient is a in-process client for test.

@@ -7,10 +7,10 @@ import (
 
 	"fmt"
 
-	"github.com/smallnest/rpcx/_testutils"
-	"github.com/smallnest/rpcx/protocol"
-	"github.com/smallnest/rpcx/server"
-	"github.com/smallnest/rpcx/share"
+	"git.parallelcoin.io/dev/rpcx/_testutils"
+	"git.parallelcoin.io/dev/rpcx/protocol"
+	"git.parallelcoin.io/dev/rpcx/server"
+	"git.parallelcoin.io/dev/rpcx/share"
 )
 
 func TestXClient_Thrift(t *testing.T) {

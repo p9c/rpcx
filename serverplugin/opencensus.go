@@ -4,9 +4,9 @@ import (
 	"context"
 	"net"
 
-	"github.com/smallnest/rpcx/protocol"
-	"github.com/smallnest/rpcx/server"
-	"github.com/smallnest/rpcx/share"
+	"git.parallelcoin.io/dev/rpcx/protocol"
+	"git.parallelcoin.io/dev/rpcx/server"
+	"git.parallelcoin.io/dev/rpcx/share"
 	"go.opencensus.io/trace"
 )
 

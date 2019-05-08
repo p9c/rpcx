@@ -3,7 +3,7 @@ package client
 import (
 	"sync/atomic"
 
-	"github.com/smallnest/rpcx/protocol"
+	"git.parallelcoin.io/dev/rpcx/protocol"
 )
 
 // XClientPool is a xclient pool with fixed size.

@@ -7,7 +7,7 @@ import (
 	"time"
 
 	metrics "github.com/rcrowley/go-metrics"
-	"github.com/smallnest/rpcx/server"
+	"git.parallelcoin.io/dev/rpcx/server"
 )
 
 func TestZookeeperRegistry(t *testing.T) {

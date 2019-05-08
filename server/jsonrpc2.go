@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/rs/cors"
-	"github.com/smallnest/rpcx/protocol"
+	"git.parallelcoin.io/dev/rpcx/protocol"
 )
 
 func (s *Server) jsonrpcHandler(w http.ResponseWriter, r *http.Request) {

@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/hashicorp/golang-lru"
-	"github.com/smallnest/rpcx/log"
-	"github.com/smallnest/rpcx/server"
+	"git.parallelcoin.io/dev/rpcx/log"
+	"git.parallelcoin.io/dev/rpcx/server"
 )
 
 var (

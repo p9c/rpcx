@@ -10,7 +10,7 @@ import (
 	"github.com/docker/libkv"
 	"github.com/docker/libkv/store"
 	"github.com/docker/libkv/store/etcd"
-	"github.com/smallnest/rpcx/log"
+	"git.parallelcoin.io/dev/rpcx/log"
 )
 
 func init() {
