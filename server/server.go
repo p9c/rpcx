@@ -59,10 +59,12 @@ var (
 
 // Server is rpcx server that use TCP or UDP.
 type Server struct {
-	ln                net.Listener
-	readTimeout       time.Duration
-	writeTimeout      time.Duration
-	gatewayHTTPServer *http.Server
+	ln                 net.Listener
+	readTimeout        time.Duration
+	writeTimeout       time.Duration
+	gatewayHTTPServer  *http.Server
+	DisableHTTPGateway bool // should disable http invoke or not.
+	DisableJSONRPC     bool // should disable json rpc or not.
 
 	serviceMapMu sync.RWMutex
 	serviceMap   map[string]*service
@@ -261,6 +263,7 @@ func (s *Server) serveListener(ln net.Listener) error {
 
 		conn, ok := s.Plugins.DoPostConnAccept(conn)
 		if !ok {
+			closeChannel(s, conn)
 			continue
 		}
 
@@ -422,7 +425,9 @@ func (s *Server) serveConn(conn net.Conn) {
 						res.Metadata = resMetadata
 					} else {
 						for k, v := range resMetadata {
-							meta[k] = v
+							if meta[k] == "" {
+								meta[k] = v
+							}
 						}
 					}
 				}
@@ -538,6 +543,8 @@ func (s *Server) handleRequest(ctx context.Context, req *protocol.Message) (res 
 
 		}
 		res.Payload = data
+	} else if replyv != nil {
+		argsReplyPools.Put(mtype.ReplyType, replyv)
 	}
 
 	return res, nil
@@ -595,6 +602,8 @@ func (s *Server) handleRequestForFunction(ctx context.Context, req *protocol.Mes
 
 		}
 		res.Payload = data
+	} else if replyv != nil {
+		argsReplyPools.Put(mtype.ReplyType, replyv)
 	}
 
 	return res, nil

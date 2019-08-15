@@ -27,11 +27,17 @@ func (s *Server) startGateway(network string, ln net.Listener) net.Listener {
 	m := cmux.New(ln)
 
 	rpcxLn := m.Match(rpcxPrefixByteMatcher())
-	jsonrpc2Ln := m.Match(cmux.HTTP1HeaderField("X-JSONRPC-2.0", "true"))
-	httpLn := m.Match(cmux.HTTP1Fast())
 
-	go s.startJSONRPC2(jsonrpc2Ln)
-	go s.startHTTP1APIGateway(httpLn)
+	if !s.DisableJSONRPC {
+		jsonrpc2Ln := m.Match(cmux.HTTP1HeaderField("X-JSONRPC-2.0", "true"))
+		go s.startJSONRPC2(jsonrpc2Ln)
+	}
+
+	if !s.DisableHTTPGateway {
+		httpLn := m.Match(cmux.HTTP1Fast())
+		go s.startHTTP1APIGateway(httpLn)
+	}
+
 	go m.Serve()
 
 	return rpcxLn
@@ -81,6 +87,13 @@ func (s *Server) closeHTTP1APIGateway(ctx context.Context) error {
 }
 
 func (s *Server) handleGatewayRequest(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	ctx := context.WithValue(r.Context(), RemoteConnContextKey, r.RemoteAddr) // notice: It is a string, different with TCP (net.Conn)
+	err := s.Plugins.DoPreReadRequest(ctx)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
 	if r.Header.Get(XServicePath) == "" {
 		servicePath := params.ByName("servicePath")
 		if strings.HasPrefix(servicePath, "/") {
@@ -127,8 +140,13 @@ func (s *Server) handleGatewayRequest(w http.ResponseWriter, r *http.Request, pa
 		wh.Set(XErrorMessage, err.Error())
 		return
 	}
+	err = s.Plugins.DoPostReadRequest(ctx, req, nil)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
 
-	ctx := context.WithValue(context.Background(), StartRequestContextKey, time.Now().UnixNano())
+	ctx = context.WithValue(ctx, StartRequestContextKey, time.Now().UnixNano())
 	err = s.auth(ctx, req)
 	if err != nil {
 		s.Plugins.DoPreWriteResponse(ctx, req, nil)

@@ -1,3 +1,5 @@
+// +build kcp
+
 package server
 
 import (
@@ -19,7 +21,7 @@ func kcpMakeListener(s *Server, address string) (ln net.Listener, err error) {
 	return kcp.ListenWithOptions(address, s.options["BlockCrypt"].(kcp.BlockCrypt), 10, 3)
 }
 
-// WithWriteTimeout sets writeTimeout.
+// WithBlockCrypt sets kcp.BlockCrypt.
 func WithBlockCrypt(bc kcp.BlockCrypt) OptionFn {
 	return func(s *Server) {
 		s.options["BlockCrypt"] = bc
