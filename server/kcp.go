@@ -1,5 +1,3 @@
-// +build kcp
-
 package server
 
 import (
