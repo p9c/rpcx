@@ -1,5 +1,3 @@
-// +build quic
-
 package client
 
 import (

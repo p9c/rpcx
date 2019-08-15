@@ -1,5 +1,3 @@
-// +build utp
-
 package client
 
 import (

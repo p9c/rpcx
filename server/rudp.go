@@ -1,5 +1,3 @@
-// +build rudp
-
 package server
 
 import (

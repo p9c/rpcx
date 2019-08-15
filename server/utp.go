@@ -1,5 +1,3 @@
-// +build utp
-
 package server
 
 import (

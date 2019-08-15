@@ -62,6 +62,7 @@ require (
 	github.com/templexxx/xor v0.0.0-20181023030647-4e92f724b73b // indirect
 	github.com/tjfoc/gmsm v1.0.1 // indirect
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5 // indirect
+	github.com/ugorji/go/codec v1.1.7
 	github.com/valyala/fastrand v1.0.0
 	github.com/vmihailenco/msgpack v4.0.4+incompatible
 	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
