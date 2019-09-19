@@ -4,7 +4,7 @@ import (
 	"errors"
 	"net"
 
-	kcp "github.com/xtaci/kcp-go"
+	kcp "git.parallelcoin.io/dev/kcp9"
 )
 
 func init() {

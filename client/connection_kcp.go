@@ -3,7 +3,7 @@ package client
 import (
 	"net"
 
-	kcp "github.com/xtaci/kcp-go"
+	"git.parallelcoin.io/dev/kcp9"
 )
 
 func newDirectKCPConn(c *Client, network, address string) (net.Conn, error) {

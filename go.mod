@@ -3,6 +3,7 @@ module git.parallelcoin.io/dev/rpcx
 go 1.12
 
 require (
+	git.parallelcoin.io/dev/kcp9 v5.2.8+incompatible // indirect
 	git.parallelcoin.io/dev/rudp v0.0.0-20190508142724-02f4144efc82
 	github.com/anacrolix/utp v0.0.0-20180219060659-9e0e1d1d0572
 	github.com/apache/thrift v0.12.0
