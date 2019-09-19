@@ -1,60 +1,156 @@
-# ***kcp-go*** :pisces:
-[![GoDoc][1]][2] [![Powered][9]][10] [![Build Status][3]][4] [![Go Report Card][5]][6] [![Coverage Statusd][7]][8] 
+<a href="https://rpcx.site/"><img height="160" src="http://rpcx.site/logos/rpcx-logo-text.png"></a>
 
-[1]: https://godoc.org/github.com/xtaci/kcp-go?status.svg
-[2]: https://godoc.org/github.com/xtaci/kcp-go
-[3]: https://travis-ci.org/xtaci/kcp-go.svg?branch=master
-[4]: https://travis-ci.org/xtaci/kcp-go
-[5]: https://goreportcard.com/badge/github.com/xtaci/kcp-go
-[6]: https://goreportcard.com/report/github.com/xtaci/kcp-go
-[7]: https://coveralls.io/repos/github/xtaci/kcp-go/badge.svg?branch=master
-[8]: https://coveralls.io/github/xtaci/kcp-go?branch=master
-[9]: https://img.shields.io/badge/KCP-Powered-blue.svg
-[10]: https://github.com/skywind3000/kcp
+Official site: [http://rpcx.site](http://rpcx.site/)
 
-***A full-featured reliable UDP communication library for various usage***
+[![License](https://img.shields.io/:license-apache%202-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![GoDoc](https://godoc.org/git.parallelcoin.io/dev/rpcx?status.png)](http://godoc.org/git.parallelcoin.io/dev/rpcx)  [![travis](https://travis-ci.org/smallnest/rpcx.svg?branch=master)](https://travis-ci.org/smallnest/rpcx) [![Go Report Card](https://goreportcard.com/badge/git.parallelcoin.io/dev/rpcx)](https://goreportcard.com/report/git.parallelcoin.io/dev/rpcx) [![coveralls](https://coveralls.io/repos/smallnest/rpcx/badge.svg?branch=master&service=github)](https://coveralls.io/github/smallnest/rpcx?branch=master) [![QQ群](https://img.shields.io/:QQ群-398044387-blue.svg)](_documents/rpcx_dev_qq.png)
 
-# ***Features*** :zap:
-1. Optimized for ***game development***.
-1. Compatible with [skywind3000's](https://github.com/skywind3000) C version with modificiations.
-1. ***Cache friendly*** and ***Memory optimized*** design in golang.
-1. A [session manager](https://github.com/xtaci/kcp-go/blob/master/sess.go) has provided with compatiablity for [net.Conn](https://golang.org/pkg/net/#Conn) and [net.Listener](https://golang.org/pkg/net/#Listener).
-1. Support [FEC(Forward Error Correction)](https://en.wikipedia.org/wiki/Forward_error_correction) with [Reed-Solomon Codes](https://en.wikipedia.org/wiki/Reed%E2%80%93Solomon_error_correction)
-1. Support packet level encryption with [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), [TEA](https://en.wikipedia.org/wiki/Tiny_Encryption_Algorithm).
+## Cross-Languages
+you can use other programming languages besides Go to access rpcx services.
 
-# ***Conventions*** :zap:
-1. [UDP](https://en.wikipedia.org/wiki/User_Datagram_Protocol)  for packet delivery.
-2. ```conv uint32``` in session manager is a ***random number*** initiated by client.
-3. KCP doesn't define control messages like SYN/ACK/FIN/RST in TCP, a real world example is to use some ***multiplexing*** protocol over session, such as [yamux](https://github.com/hashicorp/yamux), see [kcptun](https://github.com/xtaci/kcptun) for example.
+- **rpcx-gateway**: You can write clients in any programming languages to call rpcx services via [rpcx-gateway](https://github.com/rpcx-ecosystem/rpcx-gateway)
+- **http invoke**: you can use the same http requests to access rpcx gateway
+- **Java Services/Clients**: You can use [rpcx-java](https://git.parallelcoin.io/dev/rpcx-java) to implement/access rpcx servies via raw protocol.
 
-# ***Examples*** :zap:
-Client:   [full demo](https://github.com/xtaci/kcptun/blob/master/client/main.go#L231)
+
+> If you can write Go methods, you can also write rpc services. It is so easy to write rpc applications with rpcx.
+
+## Installation
+
+install the basic features:
+
+`go get -u -v git.parallelcoin.io/dev/rpcx/...`
+
+
+If you want to use `reuseport`、`quic`、`kcp`, `zookeeper`, `etcd`, `consul` registry, use those tags to `go get` 、 `go build` or `go run`. For example, if you want to use all features, you can:
+
+```sh
+go get -u -v -tags "reuseport quic kcp zookeeper etcd consul ping rudp utp" git.parallelcoin.io/dev/rpcx/...
+```
+
+**_tags_**:
+- **quic**: support quic transport
+- **kcp**: support kcp transport
+- **zookeeper**: support zookeeper register
+- **etcd**: support etcd register
+- **consul**: support consul register
+- **ping**: support network quality load balancing
+- **reuseport**: support reuseport
+
+## Features
+rpcx is a RPC framework like [Alibaba Dubbo](http://dubbo.io/) and [Weibo Motan](https://github.com/weibocom/motan).
+
+**rpcx 3.0** has been refactored for targets:
+1. **Simple**: easy to learn, easy to develop, easy to intergate and easy to deploy
+2. **Performance**: high perforamnce (>= grpc-go)
+3. **Cross-platform**: support _raw slice of bytes_, _JSON_, _Protobuf_ and _MessagePack_. Theoretically it can be used with java, php, python, c/c++, node.js, c# and other platforms
+4. **Service discovery and service governance**: support zookeeper, etcd and consul.
+
+
+It contains below features
+- Support raw Go functions. There's no need to define proto files.
+- Pluggable. Features can be extended such as service discovery, tracing.
+- Support TCP, HTTP, [QUIC](https://en.wikipedia.org/wiki/QUIC) and [KCP](https://github.com/skywind3000/kcp)
+- Support multiple codecs such as JSON, Protobuf, [MessagePack](https://msgpack.org/index.html) and raw bytes.
+- Service discovery. Support peer2peer, configured peers, [zookeeper](https://zookeeper.apache.org), [etcd](https://github.com/coreos/etcd), [consul](https://www.consul.io) and [mDNS](https://en.wikipedia.org/wiki/Multicast_DNS).
+- Fault tolerance：Failover, Failfast, Failtry.
+- Load banlancing：support Random, RoundRobin, Consistent hashing, Weighted, network quality and Geography.
+- Support Compression.
+- Support passing metadata.
+- Support Authorization.
+- Support heartbeat and one-way request.
+- Other features: metrics, log, timeout, alias, circuit breaker.
+- Support bidirectional communication.
+- Support access via HTTP so you can write clients in any programming languages.
+- Support API gateway.
+- Support backup request, forking and broadcast.
+
+
+rpcx uses a binary protocol and platform-independent, which means you can develop services in other languages such as Java, python, nodejs, and you can use other prorgramming languages to invoke services developed in Go.
+
+There is a UI manager: [rpcx-ui](https://git.parallelcoin.io/dev/rpcx-ui).
+
+## Performance
+
+Test results show rpcx has better performance than other rpc framework except standard rpc lib.
+
+
+The benchmark code is at [rpcx-benchmark](https://github.com/rpcx-ecosystem/rpcx-benchmark).
+
+**Listen to others, but test by yourself**.
+
+**_Test Environment_**
+
+- **CPU**: Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz, 32 cores
+- **Memory**: 32G
+- **Go**: 1.9.0
+- **OS**: CentOS 7 / 3.10.0-229.el7.x86_64
+
+**_Use_**
+- protobuf
+- the client and the server on the same server
+- 581 bytes payload
+- 500/2000/5000 concurrent clients
+- mock processing time: 0ms, 10ms and 30ms
+
+**_Test Result_**
+
+### mock 0ms process time
+
+<table><tr><th>Throughputs</th><th>Mean Latency</th><th>P99 Latency</th></tr><tr><td width="30%"><img src="http://colobu.com/2018/01/31/benchmark-2018-spring-of-popular-rpc-frameworks/p0-throughput.png"></td><td width="30%"><img src="http://colobu.com/2018/01/31/benchmark-2018-spring-of-popular-rpc-frameworks/p0-latency.png"></td><td width="30%"><img src="http://colobu.com/2018/01/31/benchmark-2018-spring-of-popular-rpc-frameworks/p0-p99.png"></td></tr></table>
+
+
+### mock 10ms process time
+
+<table><tr><th>Throughputs</th><th>Mean Latency</th><th>P99 Latency</th></tr><tr><td width="30%"><img src="http://colobu.com/2018/01/31/benchmark-2018-spring-of-popular-rpc-frameworks/p10-throughput.png"></td><td width="30%"><img src="http://colobu.com/2018/01/31/benchmark-2018-spring-of-popular-rpc-frameworks/p10-latency.png"></td><td width="30%"><img src="http://colobu.com/2018/01/31/benchmark-2018-spring-of-popular-rpc-frameworks/p10-p99.png"></td></tr></table>
+
+
+### mock 30ms process time
+
+<table><tr><th>Throughputs</th><th>Mean Latency</th><th>P99 Latency</th></tr><tr><td width="30%"><img src="http://colobu.com/2018/01/31/benchmark-2018-spring-of-popular-rpc-frameworks/p30-throughput.png"></td><td width="30%"><img src="http://colobu.com/2018/01/31/benchmark-2018-spring-of-popular-rpc-frameworks/p30-latency.png"></td><td width="30%"><img src="http://colobu.com/2018/01/31/benchmark-2018-spring-of-popular-rpc-frameworks/p30-p99.png"></td></tr></table>
+
+
+## Examples
+
+You can find all examples at [rpcx-ecosystem/rpcx-examples3](https://github.com/rpcx-ecosystem/rpcx-examples3).
+
+The below is a simple example.
+
+
+**Server**
+
 ```go
-kcpconn, err := kcp.DialWithOptions("192.168.0.1:10000", nil, 10, 3)
-```
-Server:   [full demo](https://github.com/xtaci/kcptun/blob/master/server/main.go#L235)
-```go
-lis, err := kcp.ListenWithOptions(":10000", nil, 10, 3)
+    // define example.Arith
+    ……
+
+    s := server.NewServer()
+	s.RegisterName("Arith", new(example.Arith), "")
+	s.Serve("tcp", addr)
+
 ```
 
-# ***Performance*** :zap:
+
+**Client**
+
+```go
+    // prepare requests
+    ……
+
+    d := client.NewPeer2PeerDiscovery("tcp@"+addr, "")
+	xclient := client.NewXClient("Arith", client.Failtry, client.RandomSelect, d, client.DefaultOption)
+	defer xclient.Close()
+	err := xclient.Call(context.Background(), "Mul", args, reply, nil)
 ```
-  型号名称：	MacBook Pro
-  型号标识符：	MacBookPro12,1
-  处理器名称：	Intel Core i5
-  处理器速度：	2.7 GHz
-  处理器数目：	1
-  核总数：	2
-  L2 缓存（每个核）：	256 KB
-  L3 缓存：	3 MB
-  内存：	8 GB
-```
-```
-$ go test -run Speed
-new client 127.0.0.1:61165
-total recv: 16777216
-time for 16MB rtt with encryption 570.41176ms
-&{BytesSent:33554432 BytesReceived:33554432 MaxConn:2 ActiveOpens:1 PassiveOpens:1 CurrEstab:1 InErrs:0 InCsumErrors:0 InSegs:42577 OutSegs:42641 OutBytes:48111336 RetransSegs:92 FastRetransSegs:92 LostSegs:0 RepeatSegs:0 FECRecovered:1 FECErrs:0 FECSegs:8514}
-PASS
-ok  	github.com/xtaci/kcp-go	0.600s
-```
+
+## Contribute
+
+see [contributors](https://git.parallelcoin.io/dev/rpcx/graphs/contributors).
+
+Welcome to contribute:
+- submit issues or requirements
+- send PRs
+- write projects to use rpcx
+- write tutorials or articles to introduce rpcx
+
+## License
+
+Apache License, Version 2.0 
