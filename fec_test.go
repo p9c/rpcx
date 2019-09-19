@@ -6,98 +6,38 @@ import (
 	"testing"
 )
 
-func TestFECOther(t *testing.T) {
-	t.Log(newFEC(128, 0, 1))
-}
-
-func TestFECNoLost(t *testing.T) {
-	fec := newFEC(128, 10, 3)
-	for i := 0; i < 100; i += 10 {
-		data := makefecgroup(i, 13)
-		for k := range data[fec.dataShards] {
-			fec.markData(data[k])
-			t.Log("input:", data[k])
+func BenchmarkFECDecode(b *testing.B) {
+	const dataSize = 10
+	const paritySize = 3
+	const payLoad = 1500
+	decoder := newFECDecoder(1024, dataSize, paritySize)
+	b.ReportAllocs()
+	b.SetBytes(payLoad)
+	for i := 0; i < b.N; i++ {
+		if rand.Int()%(dataSize+paritySize) == 0 { // random loss
+			continue
 		}
-
-		ecc := fec.calcECC(data, fecHeaderSize, fecHeaderSize+4)
-		for k := range ecc {
-			fec.markFEC(ecc[k])
+		pkt := make([]byte, payLoad)
+		binary.LittleEndian.PutUint32(pkt, uint32(i))
+		if i%(dataSize+paritySize) >= dataSize {
+			binary.LittleEndian.PutUint16(pkt[4:], typeParity)
+		} else {
+			binary.LittleEndian.PutUint16(pkt[4:], typeData)
 		}
-		t.Log("  ecc:", ecc)
-		data = append(data, ecc...)
-		for k := range data {
-			f := fec.decode(data[k])
-			if recovered := fec.input(f); recovered != nil {
-				for k := range recovered {
-					t.Log("recovered:", binary.LittleEndian.Uint32(recovered[k]))
-				}
-			}
-		}
+		decoder.decode(pkt)
 	}
 }
 
-func TestFECLost1(t *testing.T) {
-	fec := newFEC(128, 10, 3)
-	for i := 0; i < 100; i += 10 {
-		data := makefecgroup(i, 13)
-		for k := range data[fec.dataShards] {
-			fec.markData(data[k])
-			t.Log("input:", data[k])
-		}
-		ecc := fec.calcECC(data, fecHeaderSize, fecHeaderSize+4)
-		for k := range ecc {
-			fec.markFEC(ecc[k])
-		}
-		t.Log("ecc:", ecc)
-		lost := rand.Intn(13)
-		t.Log("lost:", data[lost])
-		for k := range data {
-			if k != lost {
-				f := fec.decode(data[k])
-				if recovered := fec.input(f); recovered != nil {
-					for i := range recovered {
-						t.Log("recovered:", binary.LittleEndian.Uint32(recovered[i]))
-					}
-				}
-			}
-		}
-	}
-}
+func BenchmarkFECEncode(b *testing.B) {
+	const dataSize = 10
+	const paritySize = 3
+	const payLoad = 1500
 
-func TestFECLost2(t *testing.T) {
-	fec := newFEC(128, 10, 3)
-	for i := 0; i < 100; i += 10 {
-		data := makefecgroup(i, 13)
-		for k := range data[fec.dataShards] {
-			fec.markData(data[k])
-			t.Log("input:", data[k])
-		}
-		ecc := fec.calcECC(data, fecHeaderSize, fecHeaderSize+4)
-		for k := range ecc {
-			fec.markFEC(ecc[k])
-		}
-		t.Log("ecc:", ecc)
-		lost1, lost2 := rand.Intn(13), rand.Intn(13)
-		t.Log(" lost1:", data[lost1])
-		t.Log(" lost2:", data[lost2])
-		for k := range data {
-			if k != lost1 && k != lost2 {
-				f := fec.decode(data[k])
-				if recovered := fec.input(f); recovered != nil {
-					for i := range recovered {
-						t.Log("recovered:", binary.LittleEndian.Uint32(recovered[i]))
-					}
-				}
-			}
-		}
+	b.ReportAllocs()
+	b.SetBytes(payLoad)
+	encoder := newFECEncoder(dataSize, paritySize, 0)
+	for i := 0; i < b.N; i++ {
+		data := make([]byte, payLoad)
+		encoder.encode(data)
 	}
-}
-
-func makefecgroup(start, size int) (group [][]byte) {
-	for i := 0; i < size; i++ {
-		data := make([]byte, fecHeaderSize+4)
-		binary.LittleEndian.PutUint32(data[fecHeaderSize:], uint32(start+i))
-		group = append(group, data)
-	}
-	return
 }

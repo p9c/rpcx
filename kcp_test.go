@@ -6,12 +6,13 @@ import (
 	"encoding/binary"
 	"fmt"
 	"math/rand"
+	"sync"
 	"testing"
 	"time"
 )
 
 func iclock() int32 {
-	return int32((time.Now().UnixNano() / 1000000) & 0xffffffff)
+	return int32(currentMs())
 }
 
 type DelayPacket struct {
@@ -32,7 +33,6 @@ func (p *DelayPacket) ts() int32      { return p._ts }
 func (p *DelayPacket) setts(ts int32) { p._ts = ts }
 
 type DelayTunnel struct{ *list.List }
-type Random *rand.Rand
 type LatencySimulator struct {
 	current                        int32
 	lostrate, rttmin, rttmax, nmax int
@@ -148,7 +148,7 @@ func test(mode int) {
 	slap := current + 20
 	index := 0
 	next := 0
-	var sumrtt uint32 = 0
+	var sumrtt uint32
 	count := 0
 	maxrtt := 0
 
@@ -176,16 +176,16 @@ func test(mode int) {
 		kcp2.NoDelay(1, 10, 2, 1)
 	}
 
-	var buffer []byte = make([]byte, 2000)
+	buffer := make([]byte, 2000)
 	var hr int32
 
 	ts1 := iclock()
 
 	for {
-		time.Sleep(100 * time.Millisecond)
+		time.Sleep(1 * time.Millisecond)
 		current = uint32(iclock())
-		kcp1.Update(uint32(iclock()))
-		kcp2.Update(uint32(iclock()))
+		kcp1.Update()
+		kcp2.Update()
 
 		// 每隔 20ms，kcp1发送数据
 		for ; current >= slap; slap += 20 {
@@ -205,7 +205,7 @@ func test(mode int) {
 				break
 			}
 			// 如果 p2收到udp，则作为下层协议输入到kcp2
-			kcp2.Input(buffer[:hr])
+			kcp2.Input(buffer[:hr], true, false)
 		}
 
 		// 处理虚拟网络：检测是否有udp包从p2->p1
@@ -215,7 +215,7 @@ func test(mode int) {
 				break
 			}
 			// 如果 p1收到udp，则作为下层协议输入到kcp1
-			kcp1.Input(buffer[:hr])
+			kcp1.Input(buffer[:hr], true, false)
 			//println("@@@@", hr, r)
 		}
 
@@ -263,7 +263,7 @@ func test(mode int) {
 				maxrtt = int(rtt)
 			}
 
-			println("[RECV] mode=", mode, " sn=", sn, " rtt=", rtt)
+			//println("[RECV] mode=", mode, " sn=", sn, " rtt=", rtt)
 		}
 
 		if next > 100 {
@@ -282,4 +282,21 @@ func TestNetwork(t *testing.T) {
 	test(0) // 默认模式，类似 TCP：正常模式，无快速重传，常规流控
 	test(1) // 普通模式，关闭流控等
 	test(2) // 快速模式，所有开关都打开，且关闭流控
+}
+
+func BenchmarkFlush(b *testing.B) {
+	kcp := NewKCP(1, func(buf []byte, size int) {})
+	kcp.snd_buf = make([]segment, 1024)
+	for k := range kcp.snd_buf {
+		kcp.snd_buf[k].xmit = 1
+		kcp.snd_buf[k].resendts = currentMs() + 10000
+	}
+	b.ResetTimer()
+	b.ReportAllocs()
+	var mu sync.Mutex
+	for i := 0; i < b.N; i++ {
+		mu.Lock()
+		kcp.flush(false)
+		mu.Unlock()
+	}
 }
