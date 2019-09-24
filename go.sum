@@ -1,6 +1,4 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
-git.parallelcoin.io/dev/kcp9 v5.2.8+incompatible h1:Pjcay4IR7Kkxlt4sifsoT9XJBB/3qSWOESijILwq12U=
-git.parallelcoin.io/dev/kcp9 v5.2.8+incompatible/go.mod h1:2J9JYq4Gsf4PqAorPtq8+X03GnPM0IbOkZWIW+oAmpE=
 git.parallelcoin.io/dev/rudp v0.0.0-20190815191130-4a16da245887 h1:0anFc4CQPtvvN9qppl50lr05/mfNHk7F8gfkuGWHOLE=
 git.parallelcoin.io/dev/rudp v0.0.0-20190815191130-4a16da245887/go.mod h1:ktYqy1IKwSq0vAXy8QzPVIV2pJ5Rc1YiOOfzMpVlwRQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
