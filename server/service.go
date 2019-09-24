@@ -11,8 +11,8 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	rerrors "git.parallelcoin.io/dev/rpcx/errors"
-	"git.parallelcoin.io/dev/rpcx/log"
+	rerrors "github.com/p9c/rpcx/errors"
+	"github.com/p9c/rpcx/log"
 )
 
 // Precompute the reflect type for error. Can't use error directly

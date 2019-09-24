@@ -6,10 +6,10 @@ import (
 	"io"
 	"sync"
 
-	"git.parallelcoin.io/dev/rpcx/serverplugin"
+	"github.com/p9c/rpcx/serverplugin"
 
 	multierror "github.com/hashicorp/go-multierror"
-	"git.parallelcoin.io/dev/rpcx/protocol"
+	"github.com/p9c/rpcx/protocol"
 )
 
 // OneClient wraps servicesPath and XClients.

@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"git.parallelcoin.io/dev/rpcx/_testutils"
-	"git.parallelcoin.io/dev/rpcx/protocol"
-	"git.parallelcoin.io/dev/rpcx/server"
+	"github.com/p9c/rpcx/_testutils"
+	"github.com/p9c/rpcx/protocol"
+	"github.com/p9c/rpcx/server"
 )
 
 type Args struct {

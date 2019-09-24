@@ -15,9 +15,9 @@ import (
 
 	opentracing "github.com/opentracing/opentracing-go"
 	circuit "github.com/rubyist/circuitbreaker"
-	"git.parallelcoin.io/dev/rpcx/log"
-	"git.parallelcoin.io/dev/rpcx/protocol"
-	"git.parallelcoin.io/dev/rpcx/share"
+	"github.com/p9c/rpcx/log"
+	"github.com/p9c/rpcx/protocol"
+	"github.com/p9c/rpcx/share"
 	"go.opencensus.io/trace"
 )
 

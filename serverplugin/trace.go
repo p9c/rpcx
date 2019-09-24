@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"runtime"
 
-	"git.parallelcoin.io/dev/rpcx/protocol"
+	"github.com/p9c/rpcx/protocol"
 	"golang.org/x/net/trace"
 )
 

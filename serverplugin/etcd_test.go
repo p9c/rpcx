@@ -7,7 +7,7 @@ import (
 	"time"
 
 	metrics "github.com/rcrowley/go-metrics"
-	"git.parallelcoin.io/dev/rpcx/server"
+	"github.com/p9c/rpcx/server"
 )
 
 func TestEtcdRegistry(t *testing.T) {

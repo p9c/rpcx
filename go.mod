@@ -3,6 +3,8 @@ module github.com/p9c/rpcx
 go 1.13
 
 require (
+	git.parallelcoin.io/dev/kcp9 v5.2.8+incompatible
+	git.parallelcoin.io/dev/rudp v0.0.0-20190815191130-4a16da245887
 	github.com/anacrolix/envpprof v1.1.0 // indirect
 	github.com/anacrolix/sync v0.2.0 // indirect
 	github.com/anacrolix/utp v0.0.0-20180219060659-9e0e1d1d0572

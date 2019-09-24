@@ -3,7 +3,7 @@ package serverplugin
 import (
 	"context"
 
-	"git.parallelcoin.io/dev/rpcx/protocol"
+	"github.com/p9c/rpcx/protocol"
 )
 
 var aliasAppliedKey = "__aliasAppliedKey"

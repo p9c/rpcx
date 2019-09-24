@@ -3,7 +3,7 @@ package client
 import (
 	"context"
 
-	"git.parallelcoin.io/dev/rpcx/share"
+	"github.com/p9c/rpcx/share"
 	"go.opencensus.io/trace"
 )
 

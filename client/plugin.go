@@ -4,7 +4,7 @@ import (
 	"context"
 	"net"
 
-	"git.parallelcoin.io/dev/rpcx/protocol"
+	"github.com/p9c/rpcx/protocol"
 )
 
 // pluginContainer implements PluginContainer interface.

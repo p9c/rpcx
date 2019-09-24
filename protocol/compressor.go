@@ -1,7 +1,7 @@
 package protocol
 
 import (
-	"git.parallelcoin.io/dev/rpcx/util"
+	"github.com/p9c/rpcx/util"
 )
 
 // Compressor defines a common compression interface.

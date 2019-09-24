@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"git.parallelcoin.io/dev/rpcx/log"
+	"github.com/p9c/rpcx/log"
 )
 
 // MultipleServersDiscovery is a multiple servers service discovery.

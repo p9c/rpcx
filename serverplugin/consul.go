@@ -16,7 +16,7 @@ import (
 	"github.com/docker/libkv/store"
 	"github.com/docker/libkv/store/consul"
 	metrics "github.com/rcrowley/go-metrics"
-	"git.parallelcoin.io/dev/rpcx/log"
+	"github.com/p9c/rpcx/log"
 )
 
 func init() {

@@ -4,8 +4,8 @@ import (
 	"context"
 	"net"
 
-	"git.parallelcoin.io/dev/rpcx/errors"
-	"git.parallelcoin.io/dev/rpcx/protocol"
+	"github.com/p9c/rpcx/errors"
+	"github.com/p9c/rpcx/protocol"
 )
 
 //PluginContainer represents a plugin container that defines all methods to manage plugins.

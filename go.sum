@@ -1,7 +1,8 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 git.parallelcoin.io/dev/kcp9 v5.2.8+incompatible h1:Pjcay4IR7Kkxlt4sifsoT9XJBB/3qSWOESijILwq12U=
-git.parallelcoin.io/dev/rpcx v0.0.0-20190829033934-d995e874b384 h1:uR5/2AaSrGLZ/fnk35zaF1X7Imxm2KEG5bPm/8E8IX8=
+git.parallelcoin.io/dev/kcp9 v5.2.8+incompatible/go.mod h1:2J9JYq4Gsf4PqAorPtq8+X03GnPM0IbOkZWIW+oAmpE=
 git.parallelcoin.io/dev/rudp v0.0.0-20190815191130-4a16da245887 h1:0anFc4CQPtvvN9qppl50lr05/mfNHk7F8gfkuGWHOLE=
+git.parallelcoin.io/dev/rudp v0.0.0-20190815191130-4a16da245887/go.mod h1:ktYqy1IKwSq0vAXy8QzPVIV2pJ5Rc1YiOOfzMpVlwRQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/RoaringBitmap/roaring v0.4.7/go.mod h1:8khRDP4HmeXns4xIj9oGrKSz7XTQiJx2zgh7AcNke4w=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
@@ -113,7 +114,6 @@ github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 h1:Ovs26xHkKqVztRpIrF/92Bcuy
 github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0/go.mod h1:8NvIoxWQoOIhqOTXgfV/d3M/q6VIi02HzZEHgUlZvzk=
 github.com/grpc-ecosystem/grpc-gateway v1.11.2 h1:bUDfHRK8aKGdya+msYJHffDwNxB8Eileyl7Jf2qqYjI=
 github.com/grpc-ecosystem/grpc-gateway v1.11.2/go.mod h1:vNeuVxBJEsws4ogUvrchl83t/GYV9WGTSLVdBhOQFDY=
-github.com/hashicorp/consul v1.6.1 h1:ISPgwOO8/vPYrCXQNyx63eJAYjPGRnmFsXK7aj2XICs=
 github.com/hashicorp/consul/api v1.2.0 h1:oPsuzLp2uk7I7rojPKuncWbZ+m5TMoD4Ivs+2Rkeh4Y=
 github.com/hashicorp/consul/api v1.2.0/go.mod h1:1SIkFYi2ZTXUE5Kgt179+4hH33djo11+0Eo2XgTAtkw=
 github.com/hashicorp/consul/sdk v0.2.0 h1:GWFYFmry/k4b1hEoy7kSkmU8e30GAyI4VZHk0fRxeL4=

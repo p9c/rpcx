@@ -21,9 +21,9 @@ import (
 	"os/signal"
 	"syscall"
 
-	"git.parallelcoin.io/dev/rpcx/log"
-	"git.parallelcoin.io/dev/rpcx/protocol"
-	"git.parallelcoin.io/dev/rpcx/share"
+	"github.com/p9c/rpcx/log"
+	"github.com/p9c/rpcx/protocol"
+	"github.com/p9c/rpcx/share"
 )
 
 // ErrServerClosed is returned by the Server's Serve, ListenAndServe after a call to Shutdown or Close.

@@ -5,7 +5,7 @@ import (
 
 	opentracing "github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
-	"git.parallelcoin.io/dev/rpcx/share"
+	"github.com/p9c/rpcx/share"
 )
 
 type OpenTracingPlugin struct{}

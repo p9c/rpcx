@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"time"
 
-	"git.parallelcoin.io/dev/rpcx/log"
-	"git.parallelcoin.io/dev/rpcx/share"
+	"github.com/p9c/rpcx/log"
+	"github.com/p9c/rpcx/share"
 )
 
 type makeConnFn func(c *Client, network, address string) (net.Conn, error)

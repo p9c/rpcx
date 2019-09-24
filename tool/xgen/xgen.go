@@ -9,7 +9,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"git.parallelcoin.io/dev/rpcx/tool/xgen/parser"
+	"github.com/p9c/rpcx/tool/xgen/parser"
 )
 
 var (
@@ -102,8 +102,8 @@ func generate(parsers []*parser.Parser) error {
 	fmt.Fprintln(w, `  "time"`)
 	fmt.Fprintln(w)
 	fmt.Fprintln(w, `  metrics "github.com/rcrowley/go-metrics"`)
-	fmt.Fprintln(w, `  "git.parallelcoin.io/dev/rpcx/server"`)
-	fmt.Fprintln(w, `  "git.parallelcoin.io/dev/rpcx/serverplugin"`)
+	fmt.Fprintln(w, `  "github.com/p9c/rpcx/server"`)
+	fmt.Fprintln(w, `  "github.com/p9c/rpcx/serverplugin"`)
 
 	var importedPackages = make(map[string]bool)
 	for _, p := range parsers {

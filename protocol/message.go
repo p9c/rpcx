@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"io"
 
-	"git.parallelcoin.io/dev/rpcx/util"
+	"github.com/p9c/rpcx/util"
 )
 
 var (
