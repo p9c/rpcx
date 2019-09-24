@@ -44,6 +44,7 @@ require (
 	github.com/mattn/go-isatty v0.0.9 // indirect
 	github.com/miekg/dns v1.1.17 // indirect
 	github.com/opentracing/opentracing-go v1.1.0
+	github.com/p9c/kcp v0.0.0-20190506100930-b7d5985a4fa3
 	github.com/peterbourgon/g2s v0.0.0-20170223122336-d4e7ad98afea // indirect
 	github.com/pkg/errors v0.8.1
 	github.com/prometheus/client_golang v1.1.0 // indirect
