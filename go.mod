@@ -7,7 +7,7 @@ require (
 	github.com/anacrolix/envpprof v1.1.0 // indirect
 	github.com/anacrolix/sync v0.2.0 // indirect
 	github.com/anacrolix/utp v0.0.0-20180219060659-9e0e1d1d0572
-	github.com/apache/thrift v0.12.0
+	github.com/apache/thrift v0.13.0
 	github.com/cenk/backoff v2.2.1+incompatible // indirect
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/coreos/bbolt v1.3.3 // indirect
@@ -28,7 +28,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.1.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.11.2 // indirect
-	github.com/hashicorp/consul/api v1.2.0 // indirect
+	github.com/hashicorp/consul/api v1.2.1-0.20190903220551-4ed5515fca00// indirect
 	github.com/hashicorp/go-multierror v1.0.0
 	github.com/hashicorp/golang-lru v0.5.3
 	github.com/influxdata/influxdb1-client v0.0.0-20190809212627-fc22c7df067e
@@ -41,7 +41,7 @@ require (
 	github.com/marten-seemann/quic-conn v0.0.0-20190827120552-a06e62da55b7
 	github.com/mattn/go-colorable v0.1.2 // indirect
 	github.com/mattn/go-isatty v0.0.9 // indirect
-	github.com/miekg/dns v1.1.17 // indirect
+	github.com/miekg/dns v1.1.25 // indirect
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/p9c/kcp v0.0.0-20190506100930-b7d5985a4fa3
 	github.com/peterbourgon/g2s v0.0.0-20170223122336-d4e7ad98afea // indirect
